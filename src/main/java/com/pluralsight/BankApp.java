@@ -144,6 +144,20 @@ public class BankApp {
                 case "A", "a":
                     sortList(transactions);
                     break;
+                case "D", "d":
+                    for (Transaction t : transactions){
+                        if (t.getAmount() > 0) {
+                            System.out.println(t.displayTransaction());
+                        }
+                    }
+                    break;
+                case "P", "p":
+                    for (Transaction t : transactions){
+                        if (t.getAmount() < 0) {
+                            System.out.println(t.displayTransaction());
+                        }
+                    }
+                    break;
             }
             buffReader.close();
         } catch (FileNotFoundException e){
