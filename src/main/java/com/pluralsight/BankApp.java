@@ -1,16 +1,12 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 
 public class BankApp {
     public static Scanner scanner = new Scanner(System.in);
-    public static BufferedWriter buffWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv"));
-    public static BufferedReader buffReader = new BufferedReader( new FileReader("src/main/resourced/transactions.csv"));
+    //public static BufferedReader buffReader = new BufferedReader( new FileReader("src/main/resourced/transactions.csv"));
     public static LocalDateTime rightNow = LocalDateTime.now();
     public static void main(String[] args) {
        boolean running = true;
@@ -35,15 +31,30 @@ public class BankApp {
         switch (userSelection){
             // checks for user selection with case insensitivity
             case "D", "d":
-                System.out.print("\nWhere is this deposit from? ");
-                String depositVendor = scanner.nextLine();
+                String newLine;
+                try {
+                    BufferedWriter buffWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv"));
+                    System.out.print("\nWhere is this deposit from? ");
+                    String depositVendor = scanner.nextLine();
 
-                System.out.print("\nWhat was this deposit for? ");
-                String depositDesc = scanner.nextLine();
+                    System.out.print("\nWhat was this deposit for? ");
+                    String depositDesc = scanner.nextLine();
 
-                System.out.print("\nHow much was deposited? $");
-                double depositAmount = scanner.nextDouble();
+                    System.out.print("\nHow much was deposited? $");
+                    double depositAmount = scanner.nextDouble();
 
+                    Transaction newTransaction = new Transaction(rightNow, rightNow, depositDesc, depositVendor, depositAmount);
+
+                    newLine = newTransaction.displayTransaction();
+
+                    buffWriter.write(newLine);
+                    buffWriter.close();
+
+                } catch (FileNotFoundException e){
+                    System.err.println("File cannot be located!");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
                 break;
             case "P", "p":

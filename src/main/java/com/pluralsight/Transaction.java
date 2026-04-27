@@ -39,8 +39,8 @@ public class Transaction {
     }
     //endregion
 
-    public void displayTransaction(){
-        System.out.printf("%tF|%tT|%s|%s|$%.2f%n",
-                this.date, this.time, this.description, this.vendor, this.amount);
+    public String displayTransaction(){
+        return String.format("%tF|%tT|%s|%s|$%.2f%n",
+               this.date, this.time, this.description, this.vendor, this.amount);
     }
 }
