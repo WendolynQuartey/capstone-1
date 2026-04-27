@@ -40,7 +40,7 @@ public class Transaction {
     //endregion
 
     public String displayTransaction(){
-        return String.format("%tF|%tT|%s|%s|$%.2f%n",
+        return String.format("%tF|%tT|%s|%s|%.2f%n",
                this.date, this.time, this.description, this.vendor, this.amount);
     }
 }
