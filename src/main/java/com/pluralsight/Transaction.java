@@ -1,28 +1,28 @@
 package com.pluralsight;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Transaction {
-    private Date dste;
-    private Time time;
+    private LocalDateTime date;
+    private LocalDateTime time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Transaction(Date dste, Time time, String description, String vendor, double amount) {
-        this.dste = dste;
+    public Transaction(LocalDateTime date, LocalDateTime time, String description, String vendor, double amount) {
+        this.date = date;
         this.time = time;
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
     }
+
     //region getters
-    public Date getDste() {
-        return dste;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public Time getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -38,4 +38,9 @@ public class Transaction {
         return amount;
     }
     //endregion
+
+    public void displayTransaction(){
+        System.out.printf("%tF|%tT|%s|%s|$%.2f%n",
+                this.date, this.time, this.description, this.vendor, this.amount);
+    }
 }

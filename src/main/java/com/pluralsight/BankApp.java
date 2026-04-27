@@ -1,14 +1,27 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class BankApp {
-    Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
+    public static BufferedWriter buffWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv"));
+    public static BufferedReader buffReader = new BufferedReader( new FileReader("src/main/resourced/transactions.csv"));
+    public static LocalDateTime rightNow = LocalDateTime.now();
     public static void main(String[] args) {
-        homeScreen();
+       boolean running = true;
+
+        do {
+            homeScreen();
+        } while (running);
+
     }
 
-    public static void homeScreen(){
+    public static void homeScreen() {
         System.out.print("""
                 =====HOME=====
                 D-Add Deposit
@@ -16,5 +29,29 @@ public class BankApp {
                 L-Ledger
                 X-Exit
                 What would you like to do:\s""");
+
+        String userSelection = scanner.nextLine();
+
+        switch (userSelection){
+            // checks for user selection with case insensitivity
+            case "D", "d":
+                System.out.print("\nWhere is this deposit from? ");
+                String depositVendor = scanner.nextLine();
+
+                System.out.print("\nWhat was this deposit for? ");
+                String depositDesc = scanner.nextLine();
+
+                System.out.print("\nHow much was deposited? $");
+                double depositAmount = scanner.nextDouble();
+
+
+                break;
+            case "P", "p":
+                break;
+            case "L", "l":
+                break;
+            case "X", "x":
+                break;
+        }
     }
 }
