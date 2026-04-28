@@ -136,130 +136,138 @@ public class BankApp {
 
     public static void displayLedger() {
         try {
-            BufferedReader buffReader = new BufferedReader(new FileReader(FILE_NAME));
+            boolean running = true;
+            do {
+                BufferedReader buffReader = new BufferedReader(new FileReader(FILE_NAME));
 
-            buffReader.readLine();
+                buffReader.readLine();
 
-            System.out.print("""
-                    \n=====LEDGER=====
-                    A-All Entries
-                    D-Deposits
-                    P-Payments
-                    R-Reports
-                    H-Home
-                    What would you like to do:\s""");
+                System.out.print("""
+                        \n=====LEDGER=====
+                        A-All Entries
+                        D-Deposits
+                        P-Payments
+                        R-Reports
+                        H-Home
+                        What would you like to do:\s""");
 
-            String userChoice = scanner.nextLine();
-            String fileLine;
+                String userChoice = scanner.nextLine();
+                String fileLine;
 
-            while((fileLine = buffReader.readLine()) != null){
-                String[] transactionInfo = fileLine.split("\\|");
-                Transaction newTransaction = new Transaction(
-                        LocalDate.parse(transactionInfo[0]),
-                        LocalTime.parse(transactionInfo[1]),
-                        transactionInfo[2],
-                        transactionInfo[3],
-                        Double.parseDouble(transactionInfo[4])
-                );
-                transactions.add(newTransaction);
-            }
+                while ((fileLine = buffReader.readLine()) != null) {
+                    String[] transactionInfo = fileLine.split("\\|");
+                    Transaction newTransaction = new Transaction(
+                            LocalDate.parse(transactionInfo[0]),
+                            LocalTime.parse(transactionInfo[1]),
+                            transactionInfo[2],
+                            transactionInfo[3],
+                            Double.parseDouble(transactionInfo[4])
+                    );
+                    transactions.add(newTransaction);
+                }
 
-            // Compares the Transaction objects in my transactions array list by their dates and then their times
-            Comparator<Transaction> transactionComparator = Comparator.comparing(Transaction::getTime).thenComparing(Transaction::getDate);
-            transactions.sort(transactionComparator.reversed());
+                // Compares the Transaction objects in my transactions array list by their dates and then their times
+                Comparator<Transaction> transactionComparator = Comparator.comparing(Transaction::getTime).thenComparing(Transaction::getDate);
+                transactions.sort(transactionComparator.reversed());
 
-            switch (userChoice) {
-                case "A", "a":
-                    for (Transaction t : transactions){
-                        System.out.println(t.displayTransaction());
-                    }
-                    break;
-                case "D", "d":
-                    for (Transaction t : transactions){
-                        if (t.getAmount() > 0) {
+                switch (userChoice) {
+                    case "A", "a":
+                        for (Transaction t : transactions) {
                             System.out.println(t.displayTransaction());
                         }
-                    }
-                    break;
-                case "P", "p":
-                    for (Transaction t : transactions){
-                        if (t.getAmount() < 0) {
-                            System.out.println(t.displayTransaction());
+                        break;
+                    case "D", "d":
+                        for (Transaction t : transactions) {
+                            if (t.getAmount() > 0) {
+                                System.out.println(t.displayTransaction());
+                            }
                         }
-                    }
-                    break;
-                case "R", "r":
-                    displayReports();
-                    break;
-                case "H", "h":
-                    break;
-                default:
-                    System.out.println("That's not an option");
+                        break;
+                    case "P", "p":
+                        for (Transaction t : transactions) {
+                            if (t.getAmount() < 0) {
+                                System.out.println(t.displayTransaction());
+                            }
+                        }
+                        break;
+                    case "R", "r":
+                        displayReports();
+                        break;
+                    case "H", "h":
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("That's not an option");
+                }
+                buffReader.close();
+            }while (running);
+            } catch(FileNotFoundException e){
+                System.err.println("File cannot be located!");
+            } catch(IOException e){
+                throw new RuntimeException(e);
             }
-            buffReader.close();
-        } catch (FileNotFoundException e){
-            System.err.println("File cannot be located!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public static void displayReports(){
-        System.out.print("""
-                \n=====REPORTS=====
-                1-Month To Date
-                2-Previous Month
-                3-Year To Date
-                4-Previous Year
-                5-Search by Vendor
-                0-Back
-                What would you like to do:\s""");
+        boolean running = true;
+        do {
+            System.out.print("""
+                    \n=====REPORTS=====
+                    1-Month To Date
+                    2-Previous Month
+                    3-Year To Date
+                    4-Previous Year
+                    5-Search by Vendor
+                    0-Back
+                    What would you like to do:\s""");
 
-        int reportChoice = scanner.nextInt();
-        scanner.nextLine();
+            int reportChoice = scanner.nextInt();
+            scanner.nextLine();
 
-        switch (reportChoice){
-            case 1:
-                for (Transaction t : transactions){
-                    if (t.getDate().isAfter(LocalDate.now().withDayOfMonth(1))){
-                        System.out.println(t.displayTransaction());
+            switch (reportChoice) {
+                case 1:
+                    for (Transaction t : transactions) {
+                        LocalDate today = LocalDate.now();
+                        if (t.getDate().isAfter(today.withDayOfMonth(1))) {
+                            System.out.println(t.displayTransaction());
+                        }
                     }
-                }
-                break;
-            case 2:
-                for (Transaction t : transactions){
-                    if (t.getDate().isAfter(LocalDate.now().minusMonths(1).withDayOfMonth(1))){
-                        System.out.println(t.displayTransaction());
+                    break;
+                case 2:
+                    for (Transaction t : transactions) {
+                        LocalDate today = LocalDate.now();
+                        int lastYear = today.getMonthValue() - 1;
+                        if (t.getDate().getMonthValue() == lastYear) {
+                            System.out.println(t.displayTransaction());
+                        }
                     }
-                }
-                break;
-            case 3:
-                for (Transaction t : transactions){
-                    if (t.getDate().isAfter(LocalDate.now().withDayOfYear(1))){
-                        System.out.println(t.displayTransaction());
+                    break;
+                case 3:
+                    for (Transaction t : transactions) {
+                        LocalDate today = LocalDate.now();
+                        if (t.getDate().isAfter(today.withDayOfYear(1))) {
+                            System.out.println(t.displayTransaction());
+                        }
                     }
-                }
-                break;
-            case 4:
-                for (Transaction t : transactions){
-//                    LocalDate today = LocalDate.now();
-//                    int lastYear = today.getYear() - 1;
-//                    if(t.getDate().getYear() == lastYear) {
-//
-//                    }
-
-                    if (t.getDate().isAfter(LocalDate.now().minusYears(1).withDayOfYear(1))){
-                        System.out.println(t.displayTransaction());
+                    break;
+                case 4:
+                    for (Transaction t : transactions) {
+                        LocalDate today = LocalDate.now();
+                        int lastYear = today.getYear() - 1;
+                        if (t.getDate().getYear() == lastYear) {
+                            System.out.println(t.displayTransaction());
+                        }
                     }
-                }
-                break;
-            case 5:
-                break;
-            case 0:
-                break;
-
-
-        }
+                    break;
+                case 5:
+                    break;
+                case 0:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("This is not an option");
+            }
+        } while (running);
 
 
     }
