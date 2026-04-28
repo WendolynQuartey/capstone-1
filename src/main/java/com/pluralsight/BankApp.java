@@ -12,8 +12,7 @@ import java.util.Scanner;
 public class BankApp {
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-    public static String FILE_NAME = "src/main/resources/transactions.csv";
-    // public static DateTimeFormatter inputDateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+    public static final String FILE_NAME = "src/main/resources/transactions.csv";
     public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm");
 
     public static void main(String[] args) {
@@ -49,7 +48,6 @@ public class BankApp {
                     break;
                 default:
                     System.out.println("That is not an option");
-                    break;
             }
         } while(running);
     }
@@ -200,12 +198,12 @@ public class BankApp {
                         System.out.println("That's not an option");
                 }
                 buffReader.close();
-            }while (running);
-            } catch(FileNotFoundException e){
-                System.err.println("File cannot be located!");
-            } catch(IOException e){
-                throw new RuntimeException(e);
-            }
+            } while (running);
+        } catch(FileNotFoundException e){
+            System.err.println("File cannot be located!");
+        } catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public static void displayReports(){
@@ -228,7 +226,9 @@ public class BankApp {
                 case 1:
                     for (Transaction t : transactions) {
                         LocalDate today = LocalDate.now();
-                        if (t.getDate().isAfter(today.withDayOfMonth(1))) {
+                        int thisMonth = today.getMonthValue();
+                        int thisYear = today.getYear();
+                        if (t.getDate().getMonthValue() == thisMonth && t.getDate().getYear() == thisYear) {
                             System.out.println(t.displayTransaction());
                         }
                     }
@@ -236,8 +236,9 @@ public class BankApp {
                 case 2:
                     for (Transaction t : transactions) {
                         LocalDate today = LocalDate.now();
-                        int lastYear = today.getMonthValue() - 1;
-                        if (t.getDate().getMonthValue() == lastYear) {
+                        int lastMonth = today.getMonthValue() - 1;
+                        int thisYear = today.getYear();
+                        if (t.getDate().getMonthValue() == lastMonth && t.getDate().getYear() == thisYear ) {
                             System.out.println(t.displayTransaction());
                         }
                     }
@@ -245,7 +246,8 @@ public class BankApp {
                 case 3:
                     for (Transaction t : transactions) {
                         LocalDate today = LocalDate.now();
-                        if (t.getDate().isAfter(today.withDayOfYear(1))) {
+                        int thisYear = today.getYear();
+                        if (t.getDate().getYear() == thisYear && t.getDate().isBefore(today)) {
                             System.out.println(t.displayTransaction());
                         }
                     }
@@ -276,8 +278,5 @@ public class BankApp {
                     System.out.println("This is not an option");
             }
         } while (running);
-
-
     }
-
 }
