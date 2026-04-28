@@ -4,16 +4,18 @@ import java.io.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
-import java.time.LocalDateTime;
 
 public class BankApp {
     public static Scanner scanner = new Scanner(System.in);
-    public static LocalTime timeNow = LocalTime.now();
-    public static LocalDate dateNow = LocalDate.now();
     public static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    // public static DateTimeFormatter inputDateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+    public static DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern("H:mm");
+    public static LocalDate userDate;
+    public static LocalTime userTime;
     public static void main(String[] args) {
         boolean running = true;
 
@@ -47,6 +49,7 @@ public class BankApp {
                 displayLedger();
                 break;
             case "X", "x":
+                running = false;
                 break;
             default:
                 System.out.println("That is not an option");
@@ -66,11 +69,21 @@ public class BankApp {
             System.out.print("\nWhat is this deposit for? ");
             String depositDesc = scanner.nextLine();
 
+            System.out.print("\nWhat date was this deposit made?(yyyy-MM-dd) ");
+            String depositDate = scanner.nextLine();
+
+            userDate = LocalDate.parse(depositDate);
+
+            System.out.print("\nWhat time was deposit made?(HH:mm:ss) ");
+            String depositTime = scanner.nextLine();
+
+            userTime = LocalTime.parse(depositTime, inputTimeFormatter);
+
             System.out.print("\nHow much was deposited? $");
             double depositAmount = scanner.nextDouble();
 
             // creates a new instance of the transaction object with they user info filling out the fields
-            Transaction newTransaction = new Transaction(dateNow, timeNow, depositDesc, depositVendor, depositAmount);
+            Transaction newTransaction = new Transaction(userDate, userTime, depositDesc, depositVendor, depositAmount);
 
             newLine = newTransaction.displayTransaction();
             buffWriter.write(newLine);
@@ -93,10 +106,20 @@ public class BankApp {
             System.out.print("\nWhat is this payment for? ");
             String paymentDesc = scanner.nextLine();
 
+            System.out.print("\nWhat date was this deposit made?(yyyy-MM-dd) ");
+            String paymentDate = scanner.nextLine();
+
+            userDate = LocalDate.parse(paymentDate);
+
+            System.out.print("\nWhat time was deposit made?(HH:mm) ");
+            String paymentTime = scanner.nextLine();
+
+            userTime = LocalTime.parse(paymentTime, inputTimeFormatter);
+
             System.out.print("\nHow much was withdrawn? $");
             double paymentAmount = scanner.nextDouble();
 
-            Transaction newTransaction = new Transaction(dateNow, timeNow, paymentDesc, paymentVendor, -paymentAmount);
+            Transaction newTransaction = new Transaction(userDate, userTime, paymentDesc, paymentVendor, -paymentAmount);
 
             newLine = newTransaction.displayTransaction();
             buffWriter.write(newLine);
@@ -108,6 +131,7 @@ public class BankApp {
             throw new RuntimeException(e);
         }
     }
+
     public static void displayLedger() {
         try {
             BufferedReader buffReader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
@@ -175,4 +199,5 @@ public class BankApp {
             System.out.println(t.displayTransaction());
         }
     }
+
 }
