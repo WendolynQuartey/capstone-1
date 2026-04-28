@@ -260,6 +260,14 @@ public class BankApp {
                     }
                     break;
                 case 5:
+                    System.out.print("\nWhich vendor would you like to search? ");
+                    String searchVendor = scanner.nextLine();
+
+                    for (Transaction t : transactions) {
+                        if (t.getVendor().equalsIgnoreCase(searchVendor)) {
+                            System.out.println(t.displayTransaction());
+                        }
+                    }
                     break;
                 case 0:
                     running = false;
