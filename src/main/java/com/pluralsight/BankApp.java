@@ -23,12 +23,16 @@ public class BankApp {
         boolean running = true;
         do {
             System.out.print("""
-                    \n=====HOME=====
-                    D-Add Deposit
-                    P-Make Payment (Debit)
-                    L-Ledger
-                    X-Exit
-                    What would you like to do:\s""");
+    \n╔═══════════════════╗
+    ║  \u001B[1;33m==== HOME ====\u001B[0m   ║
+    ╠═══════════════════╣
+    ║ \u001B[32m♦ D\u001B[0m  Add Deposit  ║
+    ║ \u001B[31m♦ P\u001B[0m  Make Payment ║
+    ║ \u001B[34m♦ L\u001B[0m  Ledger       ║
+    ║ \u001B[35m♦ X\u001B[0m  Exit         ║
+    ╚═══════════════════╝
+    \u001B[36m?\u001B[0m What would you like to do: \s""");
+
 
             String userSelection = scanner.nextLine();
 
@@ -141,13 +145,16 @@ public class BankApp {
                 buffReader.readLine();
 
                 System.out.print("""
-                        \n=====LEDGER=====
-                        A-All Entries
-                        D-Deposits
-                        P-Payments
-                        R-Reports
-                        H-Home
-                        What would you like to do:\s""");
+                    \n╔═══════════════════╗
+                    ║ \u001B[1;32m==== LEDGER ====\u001B[0m  ║
+                    ╠═══════════════════╣
+                    ║ \u001B[32m♦ A\u001B[0m  All Entries  ║
+                    ║ \u001B[31m♦ D\u001B[0m  Deposits     ║
+                    ║ \u001B[34m♦ P\u001B[0m  Payments     ║
+                    ║ \u001B[35m♦ R\u001B[0m  Reports      ║
+                    ║ \u001B[36m♦ H\u001B[0m  Home         ║
+                    ╚═══════════════════╝
+                    \u001B[36m?\u001B[0m What would you like to do: \s""");
 
                 String userChoice = scanner.nextLine();
                 String fileLine;
@@ -209,15 +216,19 @@ public class BankApp {
     public static void displayReports(){
         boolean running = true;
         do {
+
             System.out.print("""
-                    \n=====REPORTS=====
-                    1-Month To Date
-                    2-Previous Month
-                    3-Year To Date
-                    4-Previous Year
-                    5-Search by Vendor
-                    0-Back
-                    What would you like to do:\s""");
+                    \n╔═════════════════════════╗
+                    ║    \u001B[1;34m==== REPORTS ====\u001B[0m    ║
+                    ╠═════════════════════════╣
+                    ║ \u001B[32m♦ 1\u001B[0m  Month To Date      ║
+                    ║ \u001B[31m♦ 2\u001B[0m  Previous Month     ║
+                    ║ \u001B[34m♦ 3\u001B[0m  Year To Date       ║
+                    ║ \u001B[35m♦ 4\u001B[0m  Previous Year      ║
+                    ║ \u001B[36m♦ 5\u001B[0m  Search by Vendor   ║
+                    ║ \u001B[37m♦ 0\u001B[0m  Back               ║
+                    ╚═════════════════════════╝
+                    \u001B[36m?\u001B[0m What would you like to do: \s""");
 
             int reportChoice = scanner.nextInt();
             scanner.nextLine();
@@ -278,5 +289,9 @@ public class BankApp {
                     System.out.println("This is not an option");
             }
         } while (running);
+    }
+
+    public static void customSearch(){
+
     }
 }
