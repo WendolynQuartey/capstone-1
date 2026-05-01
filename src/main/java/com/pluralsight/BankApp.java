@@ -226,7 +226,6 @@ public class BankApp {
                     ║ \u001B[34m♦ 3\u001B[0m  Year To Date       ║
                     ║ \u001B[35m♦ 4\u001B[0m  Previous Year      ║
                     ║ \u001B[36m♦ 5\u001B[0m  Search by Vendor   ║
-                    ║ \u001B[33m♦ 6\u001B[0m  Custom Search      ║
                     ║ \u001B[37m♦ 0\u001B[0m  Back               ║
                     ╚═════════════════════════╝
                     \u001B[36m?\u001B[0m What would you like to do: \s""");
@@ -283,9 +282,6 @@ public class BankApp {
                         }
                     }
                     break;
-                case 6:
-                    customSearch();
-                    break;
                 case 0:
                     running = false;
                     break;
@@ -295,32 +291,4 @@ public class BankApp {
         } while (running);
     }
 
-    public static void customSearch(){
-        System.out.print("\nWhat date would you like to start your search from? ");
-        String startDate = scanner.nextLine();
-
-        System.out.print("\nWhat date would you like to end your search on? ");
-        String endDate = scanner.nextLine();
-
-        System.out.print("\nWhich description would you like to search for? ");
-        String searchDesc = scanner.nextLine();
-
-        System.out.print("\nWhich vendor would you like to search for? ");
-        String searchVendor = scanner.nextLine();
-
-        System.out.print("\nWhat amount would you like to search for? ");
-        double searchAmount = scanner.nextDouble();
-        scanner.nextLine();
-
-        ArrayList<Transaction> temp = new ArrayList<>();
-        for (Transaction t : transactions) {
-            if (t.getVendor().equalsIgnoreCase(searchVendor)) {
-                temp.add(t);
-            }
-
-            if (t.getVendor().equalsIgnoreCase(searchVendor)) {
-                System.out.println(t.displayTransaction());
-            }
-        }
-    }
 }
