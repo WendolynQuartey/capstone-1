@@ -99,4 +99,5 @@ I struggled a bit with understanding how to tackle certain logic like the bonus 
 I had a code review with my instructor Dave who helped me realize that the logic behind it was more complicated than it has to be.
 
 ## Next Time...
-Try to be a bit more creative with my UI. I feel like my project was very straight forward and doesn't show my creative side much
+Try to be a bit more creative with my UI. I feel like my project was very straight forward and doesn't show my creative side much. 
+I also would've spent more time tackling the bonus search because I believe that I was close to figuring it out.
