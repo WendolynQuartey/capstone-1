@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class BankApp {
     public static Scanner scanner = new Scanner(System.in);
-    public static ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    public static ArrayList<Transaction> transactions = new ArrayList<>();
     public static final String FILE_NAME = "src/main/resources/transactions.csv";
     public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm");
 
@@ -146,7 +146,7 @@ public class BankApp {
 
                 System.out.print("""
                     \n╔═══════════════════╗
-                    ║ \u001B[1;32m==== LEDGER ====\u001B[0m  ║
+                    ║ \u001B[1;33m==== LEDGER ====\u001B[0m  ║
                     ╠═══════════════════╣
                     ║ \u001B[32m♦ A\u001B[0m  All Entries  ║
                     ║ \u001B[31m♦ D\u001B[0m  Deposits     ║
@@ -206,7 +206,7 @@ public class BankApp {
                 }
                 buffReader.close();
             } while (running);
-        } catch(FileNotFoundException e){
+        } catch(FileNotFoundException e) {
             System.err.println("File cannot be located!");
         } catch(IOException e){
             throw new RuntimeException(e);
@@ -219,13 +219,14 @@ public class BankApp {
 
             System.out.print("""
                     \n╔═════════════════════════╗
-                    ║    \u001B[1;34m==== REPORTS ====\u001B[0m    ║
+                    ║     \u001B[1;33m==== REPORTS ====\u001B[0m   ║
                     ╠═════════════════════════╣
                     ║ \u001B[32m♦ 1\u001B[0m  Month To Date      ║
                     ║ \u001B[31m♦ 2\u001B[0m  Previous Month     ║
                     ║ \u001B[34m♦ 3\u001B[0m  Year To Date       ║
                     ║ \u001B[35m♦ 4\u001B[0m  Previous Year      ║
                     ║ \u001B[36m♦ 5\u001B[0m  Search by Vendor   ║
+                    ║ \u001B[33m♦ 6\u001B[0m  Custom Search      ║
                     ║ \u001B[37m♦ 0\u001B[0m  Back               ║
                     ╚═════════════════════════╝
                     \u001B[36m?\u001B[0m What would you like to do: \s""");
@@ -282,6 +283,9 @@ public class BankApp {
                         }
                     }
                     break;
+                case 6:
+                    customSearch();
+                    break;
                 case 0:
                     running = false;
                     break;
@@ -292,6 +296,31 @@ public class BankApp {
     }
 
     public static void customSearch(){
+        System.out.print("\nWhat date would you like to start your search from? ");
+        String startDate = scanner.nextLine();
 
+        System.out.print("\nWhat date would you like to end your search on? ");
+        String endDate = scanner.nextLine();
+
+        System.out.print("\nWhich description would you like to search for? ");
+        String searchDesc = scanner.nextLine();
+
+        System.out.print("\nWhich vendor would you like to search for? ");
+        String searchVendor = scanner.nextLine();
+
+        System.out.print("\nWhat amount would you like to search for? ");
+        double searchAmount = scanner.nextDouble();
+        scanner.nextLine();
+
+        ArrayList<Transaction> temp = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if (t.getVendor().equalsIgnoreCase(searchVendor)) {
+                temp.add(t);
+            }
+
+            if (t.getVendor().equalsIgnoreCase(searchVendor)) {
+                System.out.println(t.displayTransaction());
+            }
+        }
     }
 }
