@@ -91,13 +91,12 @@ switch (reportChoice) {
     }
  ```
 
-## Running the Code 
-You can simply run the BankApp class in IntelliJ IDEA once you clone it.
+
+## Running the Code
+After cloning the repository, simply open the project in IntelliJ IDEA and run the `BankApp` class to start the application.
 
 ## Personal Challenges
-I struggled a bit with understanding how to tackle certain logic like the bonus custom search and the pre-defined search reports as well.
-I had a code review with my instructor Dave who helped me realize that the logic behind it was more complicated than it has to be.
+One of the biggest challenges I faced was implementing the logic for the bonus custom search feature and the pre-defined search reports. Initially, I approached the problem in a way that made the solution more complex than necessary. After a code review with my instructor, Dave, I gained a better understanding of how to simplify the logic and break the problem into smaller, more manageable pieces. This experience helped me improve my problem-solving skills and reinforced the importance of keeping solutions as simple as possible.
 
 ## Next Time...
-Try to be a bit more creative with my UI. I feel like my project was very straight forward and doesn't show my creative side much. 
-I also would've spent more time tackling the bonus search because I believe that I was close to figuring it out.
+For future projects, I would like to spend more time enhancing the user interface to better showcase my creativity. While the application is functional and straightforward, I feel it could benefit from a more engaging and visually appealing design. I would also dedicate additional time to the bonus search feature, as I believe I was very close to completing it successfully. With a bit more time and experimentation, I am confident I could have fully implemented the functionality.
