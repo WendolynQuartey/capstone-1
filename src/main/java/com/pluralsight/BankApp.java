@@ -58,10 +58,6 @@ public class BankApp {
     }
 
     public static void addDeposit() {
-        String newLine;
-        try {
-            BufferedWriter buffWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
-
             //collects all user info
             System.out.print("\nWhere is this deposit from? ");
             String depositVendor = scanner.nextLine();
@@ -86,41 +82,22 @@ public class BankApp {
             // creates a new instance of the transaction object with they user info filling out the fields
             Transaction newTransaction = new Transaction(userDate, userTime, depositDesc, depositVendor, depositAmount);
 
-            newLine = newTransaction.displayTransaction();
-            buffWriter.write(newLine);
-            buffWriter.flush();
-            buffWriter.close();
-
-        } catch (FileNotFoundException e) {
-            System.err.println("File cannot be located: " + e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            FileManger.saveTransaction(newTransaction);
     }
-//
-//    public static Transaction getTransactionFromUser() {
-//        return null;
-//    }
-//
-//    public static void appendTransaction(Transaction t, String fileName) {
-//
-//    }
+
 
     public static void makePayment() {
-        String newLine;
-        try {
-            BufferedWriter buffWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
             System.out.print("\nWhere is this payment going? ");
             String paymentVendor = scanner.nextLine();
 
             System.out.print("\nWhat is this payment for? ");
             String paymentDesc = scanner.nextLine();
 
-            System.out.print("\nWhat date was this deposit made?(yyyy-MM-dd) ");
+            System.out.print("\nWhat date was this payment made?(yyyy-MM-dd) ");
             String userInputString = scanner.nextLine();
             LocalDate userDate = LocalDate.parse(userInputString);
 
-            System.out.print("\nWhat time was deposit made?(HH:mm:ss) ");
+            System.out.print("\nWhat time was payment made?(HH:mm:ss) ");
             userInputString = scanner.nextLine();
             LocalTime userTime = LocalTime.parse(userInputString, INPUT_TIME_FORMATTER);
 
@@ -130,15 +107,7 @@ public class BankApp {
 
             Transaction newTransaction = new Transaction(userDate, userTime, paymentDesc, paymentVendor, -paymentAmount);
 
-            newLine = newTransaction.displayTransaction();
-            buffWriter.write(newLine);
-            buffWriter.close();
-
-        } catch (FileNotFoundException e) {
-            System.err.println("File cannot be located!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            FileManger.saveTransaction(newTransaction);
     }
 
     public static void displayLedger() {
