@@ -22,50 +22,53 @@ public class BankApp {
     public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     public static void main(String[] args) {
-            homeScreen();
+        homeScreen();
     }
 
     public static void homeScreen() {
         boolean running = true;
         do {
             System.out.print("""
-    \n╔═══════════════════╗
-    ║  \u001B[1;33m==== HOME ====\u001B[0m   ║
-    ╠═══════════════════╣
-    ║ \u001B[32m♦ D\u001B[0m  Add Deposit  ║
-    ║ \u001B[31m♦ P\u001B[0m  Make Payment ║
-    ║ \u001B[34m♦ L\u001B[0m  Ledger       ║
-    ║ \u001B[35m♦ X\u001B[0m  Exit         ║
-    ╚═══════════════════╝
-    \u001B[36m?\u001B[0m What would you like to do: \s""");
+                    \n╔═══════════════════╗
+                    ║  \u001B[1;33m==== HOME ====\u001B[0m   ║
+                    ╠═══════════════════╣
+                    ║ \u001B[32m♦ D\u001B[0m  Add Deposit  ║
+                    ║ \u001B[31m♦ P\u001B[0m  Make Payment ║
+                    ║ \u001B[34m♦ L\u001B[0m  Ledger       ║
+                    ║ \u001B[35m♦ X\u001B[0m  Exit         ║
+                    ╚═══════════════════╝
+                    \u001B[36m?\u001B[0m What would you like to do: \s""");
 
 
             String userSelection = scanner.nextLine();
 
             switch (userSelection) {
                 // checks for user selection with case insensitivity
-                case "D", "d":
+                case "D", "d": {
                     addDeposit();
                     break;
-                case "P", "p":
+                }
+                case "P", "p": {
                     makePayment();
                     break;
+                }
                 case "L", "l":
                     displayLedger();
                     break;
-                case "X", "x":
+                case "X", "x": {
                     running = false;
                     break;
+                }
                 default:
                     System.out.println("That is not an option");
             }
-        } while(running);
+        } while (running);
     }
 
-    public static void addDeposit(){
+    public static void addDeposit() {
         String newLine;
         try {
-            BufferedWriter buffWriter = new BufferedWriter(new FileWriter(FILE_NAME,true));
+            BufferedWriter buffWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
             //collects all user info
             System.out.print("\nWhere is this deposit from? ");
@@ -84,6 +87,7 @@ public class BankApp {
 
             System.out.print("\nHow much was deposited? $");
             double depositAmount = scanner.nextDouble();
+            scanner.nextLine();
 
 
             // creates a new instance of the transaction object with they user info filling out the fields
@@ -91,9 +95,10 @@ public class BankApp {
 
             newLine = newTransaction.displayTransaction();
             buffWriter.write(newLine);
+            buffWriter.flush();
             buffWriter.close();
 
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.err.println("File cannot be located: " + e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -108,7 +113,7 @@ public class BankApp {
 //
 //    }
 
-    public static void makePayment(){
+    public static void makePayment() {
         String newLine;
         try {
             BufferedWriter buffWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
@@ -122,12 +127,13 @@ public class BankApp {
             String userInputString = scanner.nextLine();
             LocalDate userDate = LocalDate.parse(userInputString);
 
-            System.out.print("\nWhat time was deposit made?(HH:mm) ");
-            userInputString= scanner.nextLine();
+            System.out.print("\nWhat time was deposit made?(HH:mm:ss) ");
+            userInputString = scanner.nextLine();
             LocalTime userTime = LocalTime.parse(userInputString, INPUT_TIME_FORMATTER);
 
             System.out.print("\nHow much was withdrawn? $");
             double paymentAmount = scanner.nextDouble();
+            scanner.nextLine();
 
             Transaction newTransaction = new Transaction(userDate, userTime, paymentDesc, paymentVendor, -paymentAmount);
 
@@ -135,7 +141,7 @@ public class BankApp {
             buffWriter.write(newLine);
             buffWriter.close();
 
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.err.println("File cannot be located!");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -151,16 +157,16 @@ public class BankApp {
                 buffReader.readLine();
 
                 System.out.print("""
-                    \n╔═══════════════════╗
-                    ║ \u001B[1;33m==== LEDGER ====\u001B[0m  ║
-                    ╠═══════════════════╣
-                    ║ \u001B[32m♦ A\u001B[0m  All Entries  ║
-                    ║ \u001B[31m♦ D\u001B[0m  Deposits     ║
-                    ║ \u001B[34m♦ P\u001B[0m  Payments     ║
-                    ║ \u001B[35m♦ R\u001B[0m  Reports      ║
-                    ║ \u001B[36m♦ H\u001B[0m  Home         ║
-                    ╚═══════════════════╝
-                    \u001B[36m?\u001B[0m What would you like to do: \s""");
+                        \n╔═══════════════════╗
+                        ║ \u001B[1;33m==== LEDGER ====\u001B[0m  ║
+                        ╠═══════════════════╣
+                        ║ \u001B[32m♦ A\u001B[0m  All Entries  ║
+                        ║ \u001B[31m♦ D\u001B[0m  Deposits     ║
+                        ║ \u001B[34m♦ P\u001B[0m  Payments     ║
+                        ║ \u001B[35m♦ R\u001B[0m  Reports      ║
+                        ║ \u001B[36m♦ H\u001B[0m  Home         ║
+                        ╚═══════════════════╝
+                        \u001B[36m?\u001B[0m What would you like to do: \s""");
 
                 String userChoice = scanner.nextLine();
                 String fileLine;
@@ -212,14 +218,14 @@ public class BankApp {
                 }
                 buffReader.close();
             } while (running);
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println("File cannot be located!");
-        } catch(IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void displayReports(){
+    public static void displayReports() {
         boolean running = true;
         do {
 
@@ -256,7 +262,7 @@ public class BankApp {
                         LocalDate today = LocalDate.now();
                         int lastMonth = today.getMonthValue() - 1;
                         int thisYear = today.getYear();
-                        if (t.getDate().getMonthValue() == lastMonth && t.getDate().getYear() == thisYear ) {
+                        if (t.getDate().getMonthValue() == lastMonth && t.getDate().getYear() == thisYear) {
                             System.out.println(t.displayTransaction());
                         }
                     }
