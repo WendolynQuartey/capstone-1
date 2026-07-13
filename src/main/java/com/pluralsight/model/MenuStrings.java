@@ -10,7 +10,7 @@ public class MenuStrings {
                                     ║ \u001B[34m♦ L\u001B[0m  Ledger       ║
                                     ║ \u001B[35m♦ X\u001B[0m  Exit         ║
                                     ╚═══════════════════╝
-                                    \u001B[36m?\u001B[0m What would you like to do: \s;
+                                    \u001B[36m?\u001B[0m What would you like to do: \s
             
 """;
     public static final String  LEDGER_MENU = """
@@ -23,7 +23,7 @@ public class MenuStrings {
                                     ║ \u001B[35m♦ R\u001B[0m  Reports      ║
                                     ║ \u001B[36m♦ H\u001B[0m  Home         ║
                                     ╚═══════════════════╝
-                                    \u001B[36m?\u001B[0m What would you like to do: \\s;
+                                    \u001B[36m?\u001B[0m What would you like to do: \s
             
             """;
     public static final String REPORTS_MENU = """
@@ -38,6 +38,6 @@ public class MenuStrings {
                                     ║ \u001B[36m♦  6\u001B[0m  Custom Search     ║
                                     ║ \u001B[37m♦ 0\u001B[0m  Back               ║
                                     ╚═════════════════════════╝
-                                    \u001B[36m?\u001B[0m What would you like to do: \s;
+                                    \u001B[36m?\u001B[0m What would you like to do: \s
 """;
 }
