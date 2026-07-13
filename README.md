@@ -1,5 +1,8 @@
 # Ledger App
 
+## Running the Code
+You can simply run the BankApp class in IntelliJ IDEA once you clone this repo.
+
 ## Description
 > A command-line ledger application that tracks user deposits and payments,
 generates financial reports, and persists data to CSV files.
@@ -28,7 +31,7 @@ This class uses a `Transaction` object with the following methods:
 | `INPUT_TIME_FORMATTER` | `DateTimeFormatter`      | Pattern "H:mm" for time parsing       |
 
 ## Code I'm Most Proud of
-```
+```java
 switch (reportChoice) {
                 case 1:
                     for (Transaction t : transactions) {
@@ -90,9 +93,6 @@ switch (reportChoice) {
         } while (running);
     }
  ```
-
-## Running the Code 
-You can simply run the BankApp class in IntelliJ IDEA once you clone it.
 
 ## Personal Challenges
 I struggled a bit with understanding how to tackle certain logic like the bonus custom search and the pre-defined search reports as well.
