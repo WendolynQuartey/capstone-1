@@ -80,6 +80,7 @@ public class BankApp {
             scanner.nextLine();
 
 
+
             // creates a new instance of the transaction object with they user info filling out the fields
             Transaction newTransaction = new Transaction(userDate, userTime, depositDesc, depositVendor, depositAmount);
 
@@ -171,6 +172,7 @@ public class BankApp {
                         for (Transaction t : transactions) {
                             System.out.println(t.displayTransaction());
                         }
+                        pause();
                         break;
                     case "D", "d":
                         for (Transaction t : transactions) {
@@ -201,6 +203,16 @@ public class BankApp {
             System.err.println("File cannot be located!");
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    //pause after a transaction to allow user time to read
+    static void pause() {
+        String input = "";
+        while (!input.equalsIgnoreCase("B")) {
+            System.out.println();
+            System.out.print("Enter B to go back: ");
+            input = scanner.nextLine().trim();
         }
     }
 
