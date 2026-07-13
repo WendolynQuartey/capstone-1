@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Transaction {
+    private Long userId;
     private LocalDate date;
     private LocalTime time;
     private String description;
@@ -19,6 +20,10 @@ public class Transaction {
     }
 
     //region getters
+
+    public Long getUserId() {
+        return userId;
+    }
     public LocalDate getDate() {
         return date;
     }
@@ -39,6 +44,31 @@ public class Transaction {
         return amount;
     }
     //endregion
+
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
     public String displayTransaction(){
         return String.format("%tF|%tT|%s|%s|%.2f%n",
