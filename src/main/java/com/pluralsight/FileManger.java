@@ -2,13 +2,13 @@ package com.pluralsight;
 
 import com.pluralsight.model.Transaction;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
+import static com.pluralsight.BankApp.transactions;
 
 public class FileManger {
     public static final String FILE_NAME = "src/main/resources/transactions.csv";
@@ -41,5 +41,19 @@ public class FileManger {
         }
         return oldTransactions;
     }
+    public static void saveTransaction(Transaction transaction) {
+        try {
+            BufferedWriter buffWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            buffWriter.write(transaction.displayTransaction());
+            buffWriter.flush();
+            buffWriter.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("File cannot be located: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 }
