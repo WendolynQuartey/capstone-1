@@ -4,11 +4,9 @@ import com.pluralsight.model.Transaction;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import static com.pluralsight.BankApp.transactions;
 
 public class FileManger {
     public static final String FILE_NAME = "src/main/resources/transactions.csv";

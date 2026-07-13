@@ -4,7 +4,7 @@ public class User {
     private Long userId;
     private String userName;
     private String email;
-    private String password;
+    private String hashed_Password;
 
     public Long getUserId() {
         return userId;
@@ -30,11 +30,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHashed_Password() {
+        return hashed_Password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHashed_Password(String hashed_Password) {
+        this.hashed_Password = hashed_Password;
     }
 }
