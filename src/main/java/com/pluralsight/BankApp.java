@@ -1,9 +1,11 @@
 package com.pluralsight;
 
+import com.pluralsight.model.MenuStrings;
 import com.pluralsight.model.Transaction;
 
 import java.io.*;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +31,7 @@ public class BankApp {
         boolean running = true;
         do {
 
-
+            System.out.println(MenuStrings.HOME_MENU);
             String userSelection = scanner.nextLine();
 
             switch (userSelection) {
@@ -147,6 +149,7 @@ public class BankApp {
 
                 buffReader.readLine();
 
+                System.out.println(MenuStrings.LEDGER_MENU);
 
                 String userChoice = scanner.nextLine();
                 String fileLine;
@@ -220,7 +223,7 @@ public class BankApp {
         boolean running = true;
         do {
 
-
+            System.out.println(MenuStrings.REPORTS_MENU);
 
             int reportChoice = scanner.nextInt();
             scanner.nextLine();
