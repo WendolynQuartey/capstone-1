@@ -17,7 +17,8 @@ public class BankApp {
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Transaction> transactions = new ArrayList<>();
     public static final String FILE_NAME = "src/main/resources/transactions.csv";
-    public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm");
+    //Changer formatter to use correct pattern(before was using H:mm instead of HH:mm:ss
+    public static final DateTimeFormatter INPUT_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     public static void main(String[] args) {
             homeScreen();
@@ -230,6 +231,7 @@ public class BankApp {
                     ║ \u001B[34m♦ 3\u001B[0m  Year To Date       ║
                     ║ \u001B[35m♦ 4\u001B[0m  Previous Year      ║
                     ║ \u001B[36m♦ 5\u001B[0m  Search by Vendor   ║
+                    ║ \u001B[36m♦  6\u001B[0m  Custom Search     ║
                     ║ \u001B[37m♦ 0\u001B[0m  Back               ║
                     ╚═════════════════════════╝
                     \u001B[36m?\u001B[0m What would you like to do: \s""");
