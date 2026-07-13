@@ -170,7 +170,7 @@ public class BankApp {
 
                 String userChoice = scanner.nextLine();
                 String fileLine;
-
+                transactions.clear();
                 while ((fileLine = buffReader.readLine()) != null) {
                     String[] transactionInfo = fileLine.split("\\|");
                     Transaction newTransaction = new Transaction(
