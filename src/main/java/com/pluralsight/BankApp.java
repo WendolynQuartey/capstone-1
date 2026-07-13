@@ -127,12 +127,13 @@ public class BankApp {
             String userInputString = scanner.nextLine();
             LocalDate userDate = LocalDate.parse(userInputString);
 
-            System.out.print("\nWhat time was deposit made?(HH:mm) ");
+            System.out.print("\nWhat time was deposit made?(HH:mm:ss) ");
             userInputString = scanner.nextLine();
             LocalTime userTime = LocalTime.parse(userInputString, INPUT_TIME_FORMATTER);
 
             System.out.print("\nHow much was withdrawn? $");
             double paymentAmount = scanner.nextDouble();
+            scanner.nextLine();
 
             Transaction newTransaction = new Transaction(userDate, userTime, paymentDesc, paymentVendor, -paymentAmount);
 
