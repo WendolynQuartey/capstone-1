@@ -23,7 +23,7 @@ public class MenuStrings {
                                     ║ \u001B[35m♦ R\u001B[0m  Reports      ║
                                     ║ \u001B[36m♦ H\u001B[0m  Home         ║
                                     ╚═══════════════════╝
-                                    \\u001B[36m?\\u001B[0m What would you like to do: \\s;
+                                    \u001B[36m?\u001B[0m What would you like to do: \\s;
             
             """;
     public static final String REPORTS_MENU = """
