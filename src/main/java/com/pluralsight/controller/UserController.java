@@ -1,6 +1,9 @@
 package com.pluralsight.controller;
 
+import com.pluralsight.dto.LoginRequest;
+import com.pluralsight.dto.LoginResponse;
 import com.pluralsight.model.User;
+import com.pluralsight.service.TransactionService;
 import com.pluralsight.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,7 @@ import java.util.Optional;
 public class UserController {
     
     private final UserService userService;
+    private final TransactionService transactionService;
     
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -74,6 +78,25 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        Optional<User> user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
+        
+        if (user.isPresent()) {
+            LoginResponse response = new LoginResponse();
+            response.setUserId(user.get().getUserId());
+            response.setUserName(user.get().getUserName());
+            response.setEmail(user.get().getEmail());
+            response.setTransactions(transactionService.getTransactionsByUserId(user.get().getUserId()));
+            response.setMessage("Login successful!");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            LoginResponse response = new LoginResponse();
+            response.setMessage("Invalid email or password");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
     }
 }

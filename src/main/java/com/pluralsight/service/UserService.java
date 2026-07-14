@@ -58,4 +58,17 @@ public class UserService {
     public boolean validatePassword(String plainPassword, String hashedPassword) {
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
+    
+    public Optional<User> loginUser(String email, String password) {
+        Optional<User> user = getUserByEmail(email);
+        
+        if (user.isPresent()) {
+            // Check if password matches
+            if (validatePassword(password, user.get().getHashed_Password())) {
+                return user;
+            }
+        }
+        
+        return Optional.empty(); // Email not found or password doesn't match
+    }
 }
