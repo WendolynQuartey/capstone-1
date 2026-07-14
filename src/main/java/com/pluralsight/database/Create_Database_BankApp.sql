@@ -1,35 +1,41 @@
-use sys;
+-- Drop and create database
+DROP DATABASE IF EXISTS bank_app;
+CREATE DATABASE IF NOT EXISTS bank_app;
 
-DROP DATABASE IF EXISTS BankApp;
-CREATE DATABASE IF NOT EXISTS BankApp;
+USE bank_app;
 
-use BankApp;
-
-CREATE TABLE User
+-- Users table
+CREATE TABLE users
 (
-    userId          INT          NOT Null AUTO_INCREMENT,
-    userName        VARCHAR(50)  NOT NULL,
-    email           VARCHAR(60)  NOT NULL,
-    hashed_Password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (userId)
+    user_id          BIGINT          NOT NULL AUTO_INCREMENT,
+    user_name        VARCHAR(50)     NOT NULL UNIQUE,
+    email            VARCHAR(60)     NOT NULL UNIQUE,
+    hashed_password  VARCHAR(255)    NOT NULL,
+    PRIMARY KEY (user_id)
 );
 
-CREATE TABLE Transaction
+-- Transactions table
+CREATE TABLE transactions
 (
-    userId      INT            NOT NULL,
-    date        DATE           NOT NULL,
-    time        TIME           NOT NULL,
-    description VARCHAR(50)    NOT NULL,
-    vendor      VARCHAR(50)    NOT NULL,
-    amount      DECIMAL(10, 2) NOT NULL
-
+    transaction_id   BIGINT          NOT NULL AUTO_INCREMENT,
+    user_id          BIGINT          NOT NULL,
+    date             DATE            NOT NULL,
+    time             TIME            NOT NULL,
+    description      VARCHAR(255)    NOT NULL,
+    vendor           VARCHAR(100)    NOT NULL,
+    amount           DECIMAL(10, 2)  NOT NULL,
+    PRIMARY KEY (transaction_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-INSERT INTO User(userId, userName, email, hashed_Password)
-    VALUE (1, 'John', 'john.smith@gmail.com', '$2a$12$DZEIgGQwSWT3hBf/HGgffeodkMzKJJsxa/TigiPkm.mQzXTr4zAVK');
+-- Insert sample user
+INSERT INTO users(user_name, email, hashed_password)
+    VALUES ('john', 'john.smith@gmail.com', '$2a$12$DZEIgGQwSWT3hBf/HGgffeodkMzKJJsxa/TigiPkm.mQzXTr4zAVK');
 
-INSERT INTO Transaction(USERID, DATE, TIME, DESCRIPTION, VENDOR, AMOUNT)
-    VALUE (1, '2025-01-05', '09:15:00', 'Opening balance deposit', 'Bank', 1000.00),
+-- Insert sample transactions
+INSERT INTO transactions(user_id, date, time, description, vendor, amount)
+    VALUES 
+    (1, '2025-01-05', '09:15:00', 'Opening balance deposit', 'Bank', 1000.00),
     (1, '2025-01-12', '13:42:10', 'Office supplies', 'Staples', -48.22),
     (1, '2025-02-03', '08:05:33', 'Consulting invoice paid', 'Acme Client', 1250.00),
     (1, '2025-02-10', '18:20:00', 'Internet bill', 'Comcast', -89.99),
@@ -61,4 +67,3 @@ INSERT INTO Transaction(USERID, DATE, TIME, DESCRIPTION, VENDOR, AMOUNT)
     (1, '2026-04-24', '10:05:00', 'Emergency consulting payment', 'Acme Client', 675.00),
     (1, '2026-04-27', '13:02:38', 'bills', 'mom', -200.00),
     (1, '2026-03-29', '03:15:00', 'food', 'mom', 200.00);
-
