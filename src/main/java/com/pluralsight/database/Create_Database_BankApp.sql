@@ -1,3 +1,4 @@
+Use sys;
 -- Drop and create database
 DROP DATABASE IF EXISTS bank_app;
 CREATE DATABASE IF NOT EXISTS bank_app;
