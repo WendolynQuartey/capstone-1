@@ -1,22 +1,17 @@
 package com.pluralsight;
 
 import com.pluralsight.model.MenuStrings;
-import com.pluralsight.model.Transaction;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Display {
-    private static final Scanner scanner = new Scanner(System.in);
-    //Todo add an instance of Transactions
+    private final Scanner scanner = new Scanner(System.in);
+    //Todo clean code more; separate responsibilities of each method
+    //displayLedger and displayReports should be only doing one responsibility in this class
+    //Display = menus, input, and printing
+    //Transactions stores and filters the transaction collection
+    //FileManager reads transactions from the file
 
-    public static void homeScreen() {
+    public void homeScreen() {
         boolean running = true;
 
         do {
@@ -49,10 +44,11 @@ public class Display {
     }
 
 
-    public static void displayLedger() {
+    public  void displayLedger() {
         boolean running = true;
 //        try {
         //Todo: add to transactions class
+        //
 //
 //
 //                BufferedReader buffReader = new BufferedReader(new FileReader(FILE_NAME));
@@ -122,7 +118,7 @@ public class Display {
     }
 
     //pause after a transaction to allow user time to read
-    public static void pause() {
+    public void pause() {
         String input = "";
         while (!input.equalsIgnoreCase("B")) {
             System.out.println();
@@ -131,7 +127,7 @@ public class Display {
         }
     }
 
-    public static void displayReports() {
+    public void displayReports() {
         boolean running = true;
 
         do {
