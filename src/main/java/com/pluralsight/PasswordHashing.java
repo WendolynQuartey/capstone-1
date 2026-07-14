@@ -1,7 +1,6 @@
 package com.pluralsight;
 
 import org.mindrot.jbcrypt.BCrypt;
-
 public class PasswordHashing {
 
     // Hash a plain text password

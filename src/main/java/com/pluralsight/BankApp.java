@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import com.pluralsight.model.MenuStrings;
 import com.pluralsight.model.Transaction;
 
 import java.io.*;
