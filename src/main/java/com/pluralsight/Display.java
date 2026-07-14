@@ -23,6 +23,7 @@ public class Display {
                 case "D": {
                     //AddDeposit method from transactions method
 //                    addDeposit();
+                    //prompt for vendor/desc/date/time/amount, create the object, then call add transcation method instead
                     break;
                 }
                 case "P": {
