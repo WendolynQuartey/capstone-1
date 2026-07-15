@@ -1,0 +1,148 @@
+.transaction-list {
+  margin-top: 24px;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background: #f7fafc;
+  padding: 16px 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-card .label {
+  display: block;
+  font-size: 14px;
+  color: #718096;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.summary-card .value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.summary-card.deposits .value {
+  color: #48bb78;
+}
+
+.summary-card.payments .value {
+  color: #fc8181;
+}
+
+.summary-card.balance .value.positive {
+  color: #48bb78;
+}
+
+.summary-card.balance .value.negative {
+  color: #fc8181;
+}
+
+.summary-card.count .value {
+  color: #4299e1;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f7fafc;
+}
+
+th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 12px 16px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+tbody tr {
+  transition: background 0.2s;
+}
+
+tbody tr:hover {
+  background: #f7fafc;
+}
+
+.deposit-row {
+  border-left: 3px solid #48bb78;
+}
+
+.payment-row {
+  border-left: 3px solid #fc8181;
+}
+
+.amount-column {
+  text-align: right;
+  font-weight: 600;
+}
+
+.positive-amount {
+  color: #48bb78;
+}
+
+.negative-amount {
+  color: #fc8181;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #a0aec0;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.empty-state p:first-of-type {
+  font-size: 20px;
+  font-weight: 600;
+  color: #718096;
+  margin-bottom: 8px;
+}
+
+.empty-subtext {
+  font-size: 16px;
+}
+
+@media (max-width: 640px) {
+  .summary-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  th, td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
