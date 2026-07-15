@@ -5,7 +5,7 @@ public class MenuStrings {
                                     ╔═══════════════════╗
                                     ║  \u001B[1;33m==== HOME ====\u001B[0m   ║
                                     ╠═══════════════════╣
-                                    ║ \u001B[32m♦ D \u001B[0m  Add Deposit ║
+                                    ║ \u001B[32m♦ D\u001B[0m  Add Deposit  ║
                                     ║ \u001B[31m♦ P\u001B[0m  Make Payment ║
                                     ║ \u001B[34m♦ L\u001B[0m  Ledger       ║
                                     ║ \u001B[35m♦ X\u001B[0m  Exit         ║
@@ -35,7 +35,7 @@ public class MenuStrings {
                                     ║ \u001B[34m♦ 3\u001B[0m  Year To Date       ║
                                     ║ \u001B[35m♦ 4\u001B[0m  Previous Year      ║
                                     ║ \u001B[36m♦ 5\u001B[0m  Search by Vendor   ║
-                                    ║ \u001B[36m♦  6\u001B[0m  Custom Search     ║
+                                    ║ \u001B[36m♦ 6\u001B[0m  Custom Search      ║
                                     ║ \u001B[37m♦ 0\u001B[0m  Back               ║
                                     ╚═════════════════════════╝
                                     \u001B[36m?\u001B[0m What would you like to do: \s
