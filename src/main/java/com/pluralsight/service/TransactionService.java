@@ -69,4 +69,46 @@ public class TransactionService {
         LocalDate firstDayOfYear = currentDate.withDayOfYear(1);
         return getTransactionsByUserIdAndDateRange(userId, firstDayOfYear, currentDate);
     }
+
+    public List<Transaction> searchTransactions(Long userId, String vendor, LocalDate startDate, LocalDate endDate, String type, String reportType) {
+        LocalDate today = LocalDate.now();
+
+        if (reportType != null && !reportType.isBlank()) {
+            switch (reportType) {
+                case "month-to-date" -> {
+                    startDate = today.withDayOfMonth(1);
+                    endDate = today;
+                }
+                case "previous-month" -> {
+                    LocalDate lastMonthEnd = today.withDayOfMonth(1).minusDays(1);
+                    startDate = lastMonthEnd.withDayOfMonth(1);
+                    endDate = lastMonthEnd;
+                }
+                case "year-to-date" -> {
+                    startDate = today.withDayOfYear(1);
+                    endDate = today;
+                }
+                case "previous-year" -> {
+                    LocalDate lastYearEnd = today.withDayOfYear(1).minusDays(1);
+                    startDate = lastYearEnd.withDayOfYear(1);
+                    endDate = lastYearEnd;
+                }
+            }
+        }
+
+        final LocalDate finalStartDate = startDate;
+        final LocalDate finalEndDate = endDate;
+        final String finalType = type == null ? "all" : type;
+
+        return getTransactionsByUserId(userId).stream()
+                .filter(t -> vendor == null || vendor.isBlank() || t.getVendor().toLowerCase().contains(vendor.toLowerCase()))
+                .filter(t -> finalStartDate == null || !t.getDate().isBefore(finalStartDate))
+                .filter(t -> finalEndDate == null || !t.getDate().isAfter(finalEndDate))
+                .filter(t -> switch (finalType) {
+                    case "deposits" -> t.getAmount() > 0;
+                    case "payments" -> t.getAmount() < 0;
+                    default -> true;
+                })
+                .toList();
+    }
 }

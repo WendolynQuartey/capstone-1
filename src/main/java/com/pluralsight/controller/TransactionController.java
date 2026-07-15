@@ -42,6 +42,18 @@ public class TransactionController {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
     
+    @GetMapping("/search")
+    public ResponseEntity<List<Transaction>> searchTransactions(
+            @RequestParam Long userId,
+            @RequestParam(required = false) String vendor,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String reportType) {
+        List<Transaction> transactions = transactionService.searchTransactions(userId, vendor, startDate, endDate, type, reportType);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Transaction>> getTransactionsByUserId(@PathVariable Long userId) {
         List<Transaction> transactions = transactionService.getTransactionsByUserId(userId);

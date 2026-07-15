@@ -16,7 +16,9 @@
 }
 
 .logo {
-  font-size: 32px;
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .app-header h1 {
@@ -27,7 +29,14 @@
 
 .header-actions {
   display: flex;
+  align-items: center;
   gap: 12px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: #718096;
+  margin-right: 4px;
 }
 
 .btn {
