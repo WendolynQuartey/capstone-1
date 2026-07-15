@@ -357,6 +357,9 @@ public class Display {
                 case "5":
                     searchByVendor();
                     break;
+                case "6":
+                    searchByCustomFilter();
+                    break;
 
                 case "0":
                     running = false;
@@ -370,6 +373,40 @@ public class Display {
             }
         }
     }
+
+    private void searchByCustomFilter() {
+        //ask for start date
+        System.out.println("What is the start date? (yyyy-MM-dd)");
+        String startDateInput = scanner.nextLine();
+        //ask for end date
+        System.out.println("What is the end date? (yyyy-MM-DD)");
+        String endDateInput = scanner.nextLine();
+        //ask for description
+        System.out.println("What is the description?");
+        String descriptionInput = scanner.nextLine();
+        //ask for vendor
+        System.out.println("What is the vendor?");
+        String vendorInput = scanner.nextLine();
+        //search for amount
+        System.out.println("What is the amount?");
+        String amountInput = scanner.nextLine();
+
+        ArrayList<Transaction> results =
+                transactions.getByCustomFilters(startDateInput,endDateInput,descriptionInput,vendorInput,amountInput);
+
+        System.out.printf(
+                "%nSearch results for \"%s\":%n",
+                vendorInput
+        );
+
+        printTransactions(results);
+        pause();
+    }
+
+
+
+
+
 
     private void searchByVendor() {
         System.out.println(

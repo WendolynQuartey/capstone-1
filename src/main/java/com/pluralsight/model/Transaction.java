@@ -49,4 +49,24 @@ public class Transaction {
         return String.format("%tF|%tT|%s|%s|%.2f%n",
                this.date, this.time, this.description, this.vendor, this.amount);
     }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
 }
