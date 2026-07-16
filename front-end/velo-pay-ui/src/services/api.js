@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// Use full URL with your backend port
-const API_BASE_URL = 'http://localhost:8080/api';
+// Relative path: same-origin in production (Spring Boot serves the built frontend),
+// proxied to localhost:8080 by vite.config.js during dev (npm run dev).
+const API_BASE_URL = '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
